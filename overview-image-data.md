@@ -4,7 +4,7 @@
 
 This module is about processing image data and has the following learning goals:
 
-- **Goal 1**: Understand image processing pipelines for recognizing digits and object.s
+- **Goal 1**: Understand image processing pipelines for recognizing digits and object.
 - **Goal 2**: Understand how to implement Convolutional Neural Networks for image classification and evaluate model performance.
 - **Goal 3**: Experience various problems in training neural networks, such as vanishing gradient and improper weight initialization.
 
