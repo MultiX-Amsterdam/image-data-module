@@ -1,0 +1,14 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: docs/overview-image-data
+parts:
+- caption:
+  chapters:
+  - file: docs/preparation-image-data
+    title: "Preparation"
+  - file: docs/tutorial-image-data-notebook
+    title: "Tutorial"
+  - file: docs/assignment-image-data
+    title: "Assignment"
