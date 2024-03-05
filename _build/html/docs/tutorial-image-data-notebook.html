@@ -337,23 +337,23 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-simple-linear-algorithm">
-   A Simple Linear Algorithm
+  <a class="reference internal nav-link" href="#a-very-simple-model">
+   A Very Simple Model
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-simple-nn-the-perfect-algorithm">
-   A Simple NN (The perfect algorithm?)
+  <a class="reference internal nav-link" href="#a-simple-model-the-perfect-algorithm">
+   A Simple Model (The perfect algorithm?)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-elusive-cnn-as-good-as-it-gets">
-   The Elusive CNN (As good as it gets?)
+  <a class="reference internal nav-link" href="#a-complex-model-as-good-as-it-gets">
+   A Complex Model (As good as it gets?)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-complex-cnn-perfection">
-   The complex CNN (Perfection?)
+  <a class="reference internal nav-link" href="#explainability">
+   Explainability
   </a>
  </li>
 </ul>
@@ -381,23 +381,23 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-simple-linear-algorithm">
-   A Simple Linear Algorithm
+  <a class="reference internal nav-link" href="#a-very-simple-model">
+   A Very Simple Model
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-simple-nn-the-perfect-algorithm">
-   A Simple NN (The perfect algorithm?)
+  <a class="reference internal nav-link" href="#a-simple-model-the-perfect-algorithm">
+   A Simple Model (The perfect algorithm?)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-elusive-cnn-as-good-as-it-gets">
-   The Elusive CNN (As good as it gets?)
+  <a class="reference internal nav-link" href="#a-complex-model-as-good-as-it-gets">
+   A Complex Model (As good as it gets?)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-complex-cnn-perfection">
-   The complex CNN (Perfection?)
+  <a class="reference internal nav-link" href="#explainability">
+   Explainability
   </a>
  </li>
 </ul>
@@ -412,7 +412,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="tutorial-image-data-processing">
 <h1>Tutorial (Image Data Processing)<a class="headerlink" href="#tutorial-image-data-processing" title="Permalink to this headline">#</a></h1>
-<p>(Last updated: Jan 29, 2024)<a class="footnote-reference brackets" href="#credit" id="id1">1</a></p>
+<p>(Last updated: Mar 5, 2024)<a class="footnote-reference brackets" href="#credit" id="id1">1</a></p>
 <p>Here is an online version of <a class="reference external" href="https://colab.research.google.com/drive/17eDq0aIYNRipcjpZ6SApMUtcCPpyOvlQ?usp=sharing">this notebook in Google Colab</a>. This online version is just for browsing. To work on this notebook, you need to copy a new one to your own Google Colab.</p>
 <p>This tutorial will guide you through the entire pipeline for training an image classifier using PyTorch and deep neural networks.</p>
 <div class="cell docutils container">
@@ -422,11 +422,18 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
-Requirement already satisfied: torchviz in /usr/local/lib/python3.9/dist-packages (0.0.2)
-Requirement already satisfied: graphviz in /usr/local/lib/python3.9/dist-packages (from torchviz) (0.10.1)
-Requirement already satisfied: torch in /usr/local/lib/python3.9/dist-packages (from torchviz) (1.13.1+cu116)
-Requirement already satisfied: typing-extensions in /usr/local/lib/python3.9/dist-packages (from torch-&gt;torchviz) (4.5.0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: torchviz in /usr/local/lib/python3.10/dist-packages (0.0.2)
+Requirement already satisfied: torch in /usr/local/lib/python3.10/dist-packages (from torchviz) (2.1.0+cu121)
+Requirement already satisfied: graphviz in /usr/local/lib/python3.10/dist-packages (from torchviz) (0.20.1)
+Requirement already satisfied: filelock in /usr/local/lib/python3.10/dist-packages (from torch-&gt;torchviz) (3.13.1)
+Requirement already satisfied: typing-extensions in /usr/local/lib/python3.10/dist-packages (from torch-&gt;torchviz) (4.10.0)
+Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (from torch-&gt;torchviz) (1.12)
+Requirement already satisfied: networkx in /usr/local/lib/python3.10/dist-packages (from torch-&gt;torchviz) (3.2.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.10/dist-packages (from torch-&gt;torchviz) (3.1.3)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.10/dist-packages (from torch-&gt;torchviz) (2023.6.0)
+Requirement already satisfied: triton==2.1.0 in /usr/local/lib/python3.10/dist-packages (from torch-&gt;torchviz) (2.1.0)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.10/dist-packages (from jinja2-&gt;torch-&gt;torchviz) (2.1.5)
+Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy-&gt;torch-&gt;torchviz) (1.3.0)
 </pre></div>
 </div>
 </div>
@@ -438,9 +445,16 @@ Requirement already satisfied: typing-extensions in /usr/local/lib/python3.9/dis
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
-Requirement already satisfied: torch in /usr/local/lib/python3.9/dist-packages (1.13.1+cu116)
-Requirement already satisfied: typing-extensions in /usr/local/lib/python3.9/dist-packages (from torch) (4.5.0)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: torch in /usr/local/lib/python3.10/dist-packages (2.1.0+cu121)
+Requirement already satisfied: filelock in /usr/local/lib/python3.10/dist-packages (from torch) (3.13.1)
+Requirement already satisfied: typing-extensions in /usr/local/lib/python3.10/dist-packages (from torch) (4.10.0)
+Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (from torch) (1.12)
+Requirement already satisfied: networkx in /usr/local/lib/python3.10/dist-packages (from torch) (3.2.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.10/dist-packages (from torch) (3.1.3)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.10/dist-packages (from torch) (2023.6.0)
+Requirement already satisfied: triton==2.1.0 in /usr/local/lib/python3.10/dist-packages (from torch) (2.1.0)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.10/dist-packages (from jinja2-&gt;torch) (2.1.5)
+Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy-&gt;torch) (1.3.0)
 </pre></div>
 </div>
 </div>
@@ -452,9 +466,8 @@ Requirement already satisfied: typing-extensions in /usr/local/lib/python3.9/dis
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
-Requirement already satisfied: pydot in /usr/local/lib/python3.9/dist-packages (1.3.0)
-Requirement already satisfied: pyparsing&gt;=2.1.4 in /usr/local/lib/python3.9/dist-packages (from pydot) (3.0.9)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pydot in /usr/local/lib/python3.10/dist-packages (1.4.2)
+Requirement already satisfied: pyparsing&gt;=2.1.4 in /usr/local/lib/python3.10/dist-packages (from pydot) (3.1.1)
 </pre></div>
 </div>
 </div>
@@ -466,9 +479,54 @@ Requirement already satisfied: pyparsing&gt;=2.1.4 in /usr/local/lib/python3.9/d
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
-Requirement already satisfied: pydotplus in /usr/local/lib/python3.9/dist-packages (2.0.2)
-Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/dist-packages (from pydotplus) (3.0.9)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pydotplus in /usr/local/lib/python3.10/dist-packages (2.0.2)
+Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.10/dist-packages (from pydotplus) (3.1.1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip install grad-cam
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: grad-cam in /usr/local/lib/python3.10/dist-packages (1.5.0)
+Requirement already satisfied: numpy in /usr/local/lib/python3.10/dist-packages (from grad-cam) (1.25.2)
+Requirement already satisfied: Pillow in /usr/local/lib/python3.10/dist-packages (from grad-cam) (9.4.0)
+Requirement already satisfied: torch&gt;=1.7.1 in /usr/local/lib/python3.10/dist-packages (from grad-cam) (2.1.0+cu121)
+Requirement already satisfied: torchvision&gt;=0.8.2 in /usr/local/lib/python3.10/dist-packages (from grad-cam) (0.16.0+cu121)
+Requirement already satisfied: ttach in /usr/local/lib/python3.10/dist-packages (from grad-cam) (0.0.3)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.10/dist-packages (from grad-cam) (4.66.2)
+Requirement already satisfied: opencv-python in /usr/local/lib/python3.10/dist-packages (from grad-cam) (4.8.0.76)
+Requirement already satisfied: matplotlib in /usr/local/lib/python3.10/dist-packages (from grad-cam) (3.7.1)
+Requirement already satisfied: scikit-learn in /usr/local/lib/python3.10/dist-packages (from grad-cam) (1.2.2)
+Requirement already satisfied: filelock in /usr/local/lib/python3.10/dist-packages (from torch&gt;=1.7.1-&gt;grad-cam) (3.13.1)
+Requirement already satisfied: typing-extensions in /usr/local/lib/python3.10/dist-packages (from torch&gt;=1.7.1-&gt;grad-cam) (4.10.0)
+Requirement already satisfied: sympy in /usr/local/lib/python3.10/dist-packages (from torch&gt;=1.7.1-&gt;grad-cam) (1.12)
+Requirement already satisfied: networkx in /usr/local/lib/python3.10/dist-packages (from torch&gt;=1.7.1-&gt;grad-cam) (3.2.1)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.10/dist-packages (from torch&gt;=1.7.1-&gt;grad-cam) (3.1.3)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.10/dist-packages (from torch&gt;=1.7.1-&gt;grad-cam) (2023.6.0)
+Requirement already satisfied: triton==2.1.0 in /usr/local/lib/python3.10/dist-packages (from torch&gt;=1.7.1-&gt;grad-cam) (2.1.0)
+Requirement already satisfied: requests in /usr/local/lib/python3.10/dist-packages (from torchvision&gt;=0.8.2-&gt;grad-cam) (2.31.0)
+Requirement already satisfied: contourpy&gt;=1.0.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib-&gt;grad-cam) (1.2.0)
+Requirement already satisfied: cycler&gt;=0.10 in /usr/local/lib/python3.10/dist-packages (from matplotlib-&gt;grad-cam) (0.12.1)
+Requirement already satisfied: fonttools&gt;=4.22.0 in /usr/local/lib/python3.10/dist-packages (from matplotlib-&gt;grad-cam) (4.49.0)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib-&gt;grad-cam) (1.4.5)
+Requirement already satisfied: packaging&gt;=20.0 in /usr/local/lib/python3.10/dist-packages (from matplotlib-&gt;grad-cam) (23.2)
+Requirement already satisfied: pyparsing&gt;=2.3.1 in /usr/local/lib/python3.10/dist-packages (from matplotlib-&gt;grad-cam) (3.1.1)
+Requirement already satisfied: python-dateutil&gt;=2.7 in /usr/local/lib/python3.10/dist-packages (from matplotlib-&gt;grad-cam) (2.8.2)
+Requirement already satisfied: scipy&gt;=1.3.2 in /usr/local/lib/python3.10/dist-packages (from scikit-learn-&gt;grad-cam) (1.11.4)
+Requirement already satisfied: joblib&gt;=1.1.1 in /usr/local/lib/python3.10/dist-packages (from scikit-learn-&gt;grad-cam) (1.3.2)
+Requirement already satisfied: threadpoolctl&gt;=2.0.0 in /usr/local/lib/python3.10/dist-packages (from scikit-learn-&gt;grad-cam) (3.3.0)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.10/dist-packages (from python-dateutil&gt;=2.7-&gt;matplotlib-&gt;grad-cam) (1.16.0)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /usr/local/lib/python3.10/dist-packages (from jinja2-&gt;torch&gt;=1.7.1-&gt;grad-cam) (2.1.5)
+Requirement already satisfied: charset-normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.10/dist-packages (from requests-&gt;torchvision&gt;=0.8.2-&gt;grad-cam) (3.3.2)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.10/dist-packages (from requests-&gt;torchvision&gt;=0.8.2-&gt;grad-cam) (3.6)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.10/dist-packages (from requests-&gt;torchvision&gt;=0.8.2-&gt;grad-cam) (2.0.7)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.10/dist-packages (from requests-&gt;torchvision&gt;=0.8.2-&gt;grad-cam) (2024.2.2)
+Requirement already satisfied: mpmath&gt;=0.19 in /usr/local/lib/python3.10/dist-packages (from sympy-&gt;torch&gt;=1.7.1-&gt;grad-cam) (1.3.0)
 </pre></div>
 </div>
 </div>
@@ -490,6 +548,9 @@ Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/d
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">pytorch_grad_cam</span> <span class="kn">import</span> <span class="n">GradCAM</span>
+<span class="kn">from</span> <span class="nn">pytorch_grad_cam.utils.image</span> <span class="kn">import</span> <span class="n">show_cam_on_image</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 </div>
@@ -503,6 +564,8 @@ Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/d
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
     <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>          <span class="c1"># use CUDA device</span>
+<span class="k">elif</span> <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">mps</span><span class="o">.</span><span class="n">is_available</span><span class="p">:</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;mps&quot;</span><span class="p">)</span>          <span class="c1"># use MPS device</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>           <span class="c1"># use CPU device</span>
 <span class="n">device</span>
@@ -544,18 +607,17 @@ Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/d
 </div>
 <section id="scenario">
 <h2>Scenario<a class="headerlink" href="#scenario" title="Permalink to this headline">#</a></h2>
-<p><img alt="" src="https://github.com/MultiX-Amsterdam/image-data-module/blob/main/images/tablet.jpg?raw=true" /></p>
+<p><img alt="" src="https://github.com/MultiX-Amsterdam/image-data-module/blob/main/docs/images/tablet.jpg?raw=true" /></p>
 <p>Image source – <a class="reference external" href="https://www.istockphoto.com/nl/foto/ancient-text-gm139879372-1545295">https://www.istockphoto.com/nl/foto/ancient-text-gm139879372-1545295</a></p>
-<p>As an aspiring machine learning enthusiast, you have been presented with a unique challenge. A team of archeologists has discovered an ancient text written on a mysterious tablet that nobody has ever seen before. The script on this is so complex that no one has been able to decipher it, even after months of studying it.</p>
-<p>However, you have a hunch that machine learning could be used to decipher the tablets script. You have been tasked with converting the ancient script into a string of modern numbers, as it is suspected to be some kind of Mathematical Algorithm - you’re tasked with turning the script into a dataset that can be used to train a machine learning model. To do this, you will need to organize the ancient symbols into 10 classes, one for each digit, and label them accordingly.</p>
-<p>To train the machine learning model, you will be using the MNIST dataset, which is a well-known benchmark dataset for image classification. Once you have organized the ancient symbols into classes, you can use the MNIST dataset to train the machine learning model to recognize the symbols.</p>
+<p>As an aspiring machine learning enthusiast, you have been presented with a challenge. A team of archeologists has discovered an ancient text written on a mysterious tablet that nobody has ever seen before. The script on this is so complex that no one has been able to decipher it, even after months of studying it.</p>
+<p>However, you have a hunch that machine learning could be used to decipher the tablet’s script. You have been tasked with converting the ancient script into a string of modern numbers, as it is suspected to be some kind of Mathematical Algorithm. You need to turn the script into a dataset that can be used to train a machine learning model. To do this, you will need to organize the ancient symbols into 10 classes, one for each digit, and label them accordingly.</p>
+<p>To train the machine learning model, you will use the MNIST dataset, a well-known benchmark dataset for image classification. Once you have organized the ancient symbols into classes, you can use the MNIST dataset to train the machine learning model to recognize the symbols.</p>
 <p>With the help of the machine learning model, your colleagues will be able to classify the symbols in the ancient text and decipher the secrets of an ancient civilization that have been lost for centuries. This task requires creativity, persistence, and attention to detail, but with the power of machine learning, you have the opportunity to unlock a new understanding of an ancient culture and make a significant contribution to the field of archeology.</p>
-<p>You will be provided with all the sufficient resources to carry out this task, good luck!</p>
 </section>
-<section id="a-simple-linear-algorithm">
-<h2>A Simple Linear Algorithm<a class="headerlink" href="#a-simple-linear-algorithm" title="Permalink to this headline">#</a></h2>
-<p>This notebook will help you understand and create an algorithm which will learn how to recognize ancient symbols, and convert them to the modern decimal system, your colleagues will then have the task of converting the rest of the symbols to other modern mathematical operators, with the end goal of discovering the secrets of this Ancient Civilization.</p>
-<p>Below we will lay out the code for a simple, 1-layer linear network, whose goal is to classify the ancient digits, using our modern decimal system:</p>
+<section id="a-very-simple-model">
+<h2>A Very Simple Model<a class="headerlink" href="#a-very-simple-model" title="Permalink to this headline">#</a></h2>
+<p>This notebook will help you understand and create an algorithm that will learn how to recognize ancient symbols and convert them to the modern decimal system. Your colleagues will then have the task of converting the rest of the symbols to other modern mathematical operators, with the end goal of discovering the secrets of this Ancient Civilization.</p>
+<p>Below, we will lay out the code for a simple, 1-layer linear network, whose goal is to classify the ancient digits using our modern decimal system:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, we define the transforms for the data.</span>
@@ -573,15 +635,15 @@ Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/d
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next we will load the MNIST dataset, which we use to train the network.</span>
 <span class="c1"># NOTE: In the assignment, we will not use a dataset in this library, so we will show you alternate methods to load a dataset.</span>
 
-<span class="n">trainset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">)</span>
-<span class="n">testset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">)</span>
+<span class="n">trainset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">&quot;./data&quot;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">)</span>
+<span class="n">testset</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">&quot;./data&quot;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next we define the dataloaders.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Next we define the dataloaders</span>
 
 <span class="n">trainloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">trainset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">testloader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">testset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -593,12 +655,12 @@ Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/d
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualizing the Data:</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualizing the Data</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 <span class="c1"># Load the MNIST dataset and apply normalization</span>
-<span class="n">mnist_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s1">&#39;./data&#39;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">mnist_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="s2">&quot;./data&quot;</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">data_loader</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DataLoader</span><span class="p">(</span><span class="n">mnist_data</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1"># Display a batch of images</span>
@@ -611,16 +673,15 @@ Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/d
 
     <span class="c1"># Display the image grid and labels</span>
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">grid_image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">grid_image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">label_text</span><span class="p">))):</span>
         <span class="c1"># Calculate the position of the label text</span>
         <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">grid_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">8</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">grid_image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">32</span>
-
         <span class="c1"># Add the label text to the image</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label_text</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label_text</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">break</span>
@@ -631,12 +692,12 @@ Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/d
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:matplotlib.image:Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
 </pre></div>
 </div>
-<img alt="../_images/tutorial-image-data-notebook_19_1.png" src="../_images/tutorial-image-data-notebook_19_1.png" />
+<img alt="../_images/tutorial-image-data-notebook_19_12.png" src="../_images/tutorial-image-data-notebook_19_12.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we define the Networks &#39;architecture&#39;, this is essentially the Algorithm you&#39;ve heard so much about.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we define the networks architecture, this is essentially the algorithm you&#39;ve heard so much about.</span>
 
 <span class="k">class</span> <span class="nc">VerySimpleNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -646,137 +707,76 @@ Requirement already satisfied: pyparsing&gt;=2.0.1 in /usr/local/lib/python3.9/d
         <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">28</span><span class="o">*</span><span class="mi">28</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># flattening the tensor</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># putting our data through the linear function</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># outputting a classification via log_softmax</span>
         <span class="k">return</span> <span class="n">output</span>
-
-<span class="c1"># Here you see how the model evolves</span>
-<span class="c1"># - flattening the tensor</span>
-<span class="c1"># - putting our data through the linear function</span>
-<span class="c1"># - outputting a classification via log_softmax</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we will do what we call &#39;initializing&#39; the network and optimizer.</span>
-<span class="c1"># We effectively tell it how to &#39;learn&#39;, to correct itself by changing the weights of nodes in the network with what we call a loss function.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we will do what we call &quot;initializing&quot; the network and optimizer.</span>
+<span class="c1"># We effectively tell it how to learn, to correct itself by changing the weights of nodes in the network with what we call a loss function.</span>
 
-<span class="n">net</span> <span class="o">=</span> <span class="n">VerySimpleNet</span><span class="p">()</span>
+<span class="n">very_simple_net</span> <span class="o">=</span> <span class="n">VerySimpleNet</span><span class="p">()</span>
 <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">NLLLoss</span><span class="p">()</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">very_simple_net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 
 <span class="c1"># We wish to visualize:</span>
 <span class="c1"># Create a sample input tensor</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
 <span class="c1"># Pass the input tensor through the network and calculate the output</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">very_simple_net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="c1"># Create a visualization of the computation graph</span>
-<span class="n">dot</span> <span class="o">=</span> <span class="n">make_dot</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">()))</span>
-<span class="n">dot</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;png&#39;</span>
-<span class="n">dot</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;net_graph1&#39;</span><span class="p">)</span>
+<span class="n">dot</span> <span class="o">=</span> <span class="n">make_dot</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">very_simple_net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">()))</span>
+<span class="n">dot</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
+<span class="n">dot</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;net_graph1&quot;</span><span class="p">)</span>
 
 <span class="c1"># Display the computation graph in Jupyter Notebook</span>
-<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;net_graph1.png&#39;</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;net_graph1.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/tutorial-image-data-notebook_21_0.png" src="../_images/tutorial-image-data-notebook_21_0.png" />
+<img alt="../_images/tutorial-image-data-notebook_21_02.png" src="../_images/tutorial-image-data-notebook_21_02.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we actually train the network, so we can test it&#39;s effectiveness.</span>
 
-<span class="n">net</span> <span class="o">=</span> <span class="n">to_device</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span> <span class="c1"># move the model to the device (CPU or GPU)</span>
-<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
+<span class="n">very_simple_net</span> <span class="o">=</span> <span class="n">to_device</span><span class="p">(</span><span class="n">very_simple_net</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span> <span class="c1"># move the model to the device (CPU or GPU)</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
     <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trainloader</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">very_simple_net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
         <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
         <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">99</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">%d</span><span class="s1">, </span><span class="si">%5d</span><span class="s1">] loss: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">500</span> <span class="o">==</span> <span class="mi">499</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[epoch </span><span class="si">%d</span><span class="s2">, iteration </span><span class="si">%5d</span><span class="s2">] loss: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span>
                   <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">running_loss</span> <span class="o">/</span> <span class="mi">100</span><span class="p">))</span>
             <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished training&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,   100] loss: 0.565
-[1,   200] loss: 0.380
-[1,   300] loss: 0.346
-[1,   400] loss: 0.328
-[1,   500] loss: 0.332
-[1,   600] loss: 0.334
-[1,   700] loss: 0.333
-[1,   800] loss: 0.327
-[1,   900] loss: 0.322
-[2,   100] loss: 0.297
-[2,   200] loss: 0.300
-[2,   300] loss: 0.317
-[2,   400] loss: 0.311
-[2,   500] loss: 0.323
-[2,   600] loss: 0.308
-[2,   700] loss: 0.296
-[2,   800] loss: 0.306
-[2,   900] loss: 0.313
-[3,   100] loss: 0.297
-[3,   200] loss: 0.284
-[3,   300] loss: 0.295
-[3,   400] loss: 0.306
-[3,   500] loss: 0.320
-[3,   600] loss: 0.275
-[3,   700] loss: 0.302
-[3,   800] loss: 0.314
-[3,   900] loss: 0.294
-[4,   100] loss: 0.278
-[4,   200] loss: 0.282
-[4,   300] loss: 0.284
-[4,   400] loss: 0.302
-[4,   500] loss: 0.293
-[4,   600] loss: 0.293
-[4,   700] loss: 0.298
-[4,   800] loss: 0.285
-[4,   900] loss: 0.301
-[5,   100] loss: 0.285
-[5,   200] loss: 0.285
-[5,   300] loss: 0.272
-[5,   400] loss: 0.291
-[5,   500] loss: 0.286
-[5,   600] loss: 0.280
-[5,   700] loss: 0.314
-[5,   800] loss: 0.283
-[5,   900] loss: 0.286
-[6,   100] loss: 0.278
-[6,   200] loss: 0.267
-[6,   300] loss: 0.280
-[6,   400] loss: 0.282
-[6,   500] loss: 0.297
-[6,   600] loss: 0.300
-[6,   700] loss: 0.291
-[6,   800] loss: 0.286
-[6,   900] loss: 0.274
-[7,   100] loss: 0.288
-[7,   200] loss: 0.273
-[7,   300] loss: 0.294
-[7,   400] loss: 0.261
-[7,   500] loss: 0.298
-[7,   600] loss: 0.263
-[7,   700] loss: 0.279
-[7,   800] loss: 0.270
-[7,   900] loss: 0.302
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[epoch 1, iteration   500] loss: 1.960
+[epoch 2, iteration   500] loss: 1.533
+[epoch 3, iteration   500] loss: 1.446
+[epoch 4, iteration   500] loss: 1.462
+[epoch 5, iteration   500] loss: 1.438
+[epoch 6, iteration   500] loss: 1.425
 Finished training
 </pre></div>
 </div>
@@ -784,19 +784,19 @@ Finished training
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lastly, we evaluate the network on the test data, this code is quite easy to understand.</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lastly, we evaluate the network on the test data.</span>
 
 <span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">testloader</span><span class="p">:</span>
         <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">very_simple_net</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">total</span> <span class="o">+=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy on the test set: </span><span class="si">%d</span><span class="s1"> </span><span class="si">%%</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on the test set: </span><span class="si">%d</span><span class="s2"> </span><span class="si">%%</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -807,12 +807,12 @@ Finished training
 </div>
 </div>
 </section>
-<section id="a-simple-nn-the-perfect-algorithm">
-<h2>A Simple NN (The perfect algorithm?)<a class="headerlink" href="#a-simple-nn-the-perfect-algorithm" title="Permalink to this headline">#</a></h2>
-<p>Now, 90% classification rate is good, for most purposes, but for the task at hand, we will need something just short of perfection - time for a more complex network!</p>
-<p>As you (should) have learned from your lectures and the course so far, there is phenomenon we call over-fitting and under-fitting, which happens when we use a model too simple or too complex for the data at hand.</p>
-<p>We then know, that there should exist a perfect algorithm, which exists in the space below an over-fit model, and above an under-fit model, although it is near impossible to get to this ‘perfect’ model, we can simply stop once it’s what we consider, adequete, lets do our best to find this not-so-perfect model then.</p>
-<p>Below you will find, what we would call a simple Convolutional (Neural) Network (CNN), not quite deep learning, but the architecture is getting more complex. With this improved model, we would hope for higher accuracy, lets test this out.</p>
+<section id="a-simple-model-the-perfect-algorithm">
+<h2>A Simple Model (The perfect algorithm?)<a class="headerlink" href="#a-simple-model-the-perfect-algorithm" title="Permalink to this headline">#</a></h2>
+<p>Now, a 90% classification rate is good for most purposes, but we want to do better than that. It is now time for a more complex network!</p>
+<p>As you (should) have learned from the course so far, there are phenomena that we call overfitting and underfitting, which happen when we use a model that is too simple or too complex for the data at hand.</p>
+<p>We then know that there should exist a perfect algorithm in the space below an overfit model and above an underfit model. Although getting to this perfect model is nearly impossible, we can stop the experiment when we consider the model appropriate. Let’s do our best to find this not-so-perfect model then.</p>
+<p>Below, you will find what we would call a simple Convolutional Neural Network (CNN). With this improved model, we hope for higher accuracy. Let’s test this out.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Network architecture</span>
@@ -835,159 +835,105 @@ Finished training
 </div>
 </div>
 </div>
-<p>Some new functions have been introduced here, convolution. A convolution here is what we will call a ‘matrix sliding operation’ we input the image and a small matrix of numbers called a kernel (matrix much smaller than the image).</p>
-<p>To perform a convolution operation, we slide the kernel over the image, starting at the top left corner, and perform a series of element-wise multiplications and summations. At each location, we multiply the values in the kernel by the corresponding values in the image, and sum up the results. We then store the result in the output image at the corresponding location, it is a smaller matrix than the image, as we have ‘contracted’ values into a smaller space, essentially, that is the idea of a convolution.</p>
-<p>By doing this for every location in the input image, we can create a new output image that has been filtered or transformed in some way based on the kernel - the image below will make this much more obvious:</p>
-<p><img alt="" src="https://github.com/MultiX-Amsterdam/image-data-module/blob/main/images/convolution.png?raw=true" /></p>
+<p>A new function, convolution, has been introduced here. A convolution here is what we will call a matrix sliding operation. We input the image and a small matrix of numbers called a kernel (a matrix much smaller than the image).</p>
+<p>To perform a convolution operation, we slide the kernel over the image, starting at the top left corner, and perform a series of element-wise multiplications and summations. At each location, we multiply the values in the kernel by the corresponding values in the image and sum up the results. We then store the result in the output image at the corresponding location. It is a smaller matrix than the image, as we have contracted values into a smaller space. Essentially, that is the idea of a convolution.</p>
+<p>By doing this for every location in the input image, we can create a new output image that has been filtered or transformed in some way based on the kernel. The image below will make this much more obvious:</p>
+<p><img alt="" src="https://github.com/MultiX-Amsterdam/image-data-module/blob/main/docs/images/convolution.png?raw=true" /></p>
 <p>Image source – <a class="reference external" href="https://people.minesparis.psl.eu/fabien.moutarde/ES_MachineLearning/TP_convNets/convnet-notebook.html">https://people.minesparis.psl.eu/fabien.moutarde/ES_MachineLearning/TP_convNets/convnet-notebook.html</a></p>
-<p>You’ll notice however, we have also introduced something called Max Pooling, this is similar to a convolution, but it’s primary goal is to reduce the dimensionality (size) of the feature maps produced by a layer of our CNN.</p>
-<p>The basic idea behind max pooling is to divide the feature map into non-overlapping regions, and then take the maximum value of each region as the output.</p>
+<p>We have also introduced Max Pooling, which is similar to a convolution. However, its primary goal is to reduce the dimensionality (size) of the feature maps produced by a layer of our CNN.</p>
+<p>The basic idea behind max pooling is to divide the feature map into non-overlapping regions and then take the maximum value of each region as the output.</p>
 <p>To perform max pooling, we first select a region of the feature map (usually a small rectangle) and then find the maximum value in that region. We then store the maximum value in a new output feature map at the corresponding location.</p>
-<p>By repeating this process for each non-overlapping region in the feature map, we can create a new output feature map that is smaller than the input feature map. This process can be thought of as “pooling” the information from the input feature map, since we are reducing the amount of information by selecting only the maximum values, similar to convolutions as mentioned before!</p>
+<p>By repeating this process for each non-overlapping region in the feature map, we can create a new output feature map smaller than the input feature map. This process can be considered pooling the information from the input feature map since we are reducing the amount of information by selecting only the maximum values, similar to convolutions.</p>
 <p>See below an image which describes Max Pooling:</p>
-<p><img alt="" src="https://github.com/MultiX-Amsterdam/image-data-module/blob/main/images/max-pooling.png?raw=true" /></p>
+<p><img alt="" src="https://github.com/MultiX-Amsterdam/image-data-module/blob/main/docs/images/max-pooling.png?raw=true" /></p>
 <p>Image source – <a class="reference external" href="https://www.geeksforgeeks.org/cnn-introduction-to-pooling-layer/">https://www.geeksforgeeks.org/cnn-introduction-to-pooling-layer/</a></p>
-<p>Now, just as before, we are now going to have to initialize the network, and it’s criterion and optimizer, now that you have seen it before, I should explain these a bit better:</p>
+<p>Now, just as before, we are now going to have to initialize the network, the criterion (i.e., the loss function), and the optimizer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Again, &#39;initializing&#39; the network and optimizer, we effectively tell it how to &#39;learn&#39;, to correct itself by changing the weights of nodes in the network with what we call a loss function.</span>
-<span class="n">net</span> <span class="o">=</span> <span class="n">SimpleNet</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initializing the network</span>
+
+<span class="n">simple_net</span> <span class="o">=</span> <span class="n">SimpleNet</span><span class="p">()</span>
 <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">NLLLoss</span><span class="p">()</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">simple_net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
 <span class="c1"># Pass the input tensor through the network and calculate the output</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">simple_net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="c1"># Create a visualization of the computation graph</span>
-<span class="n">dot</span> <span class="o">=</span> <span class="n">make_dot</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">()))</span>
-<span class="n">dot</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;png&#39;</span>
-<span class="n">dot</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;net_graph2&#39;</span><span class="p">)</span>
+<span class="n">dot</span> <span class="o">=</span> <span class="n">make_dot</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">simple_net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">()))</span>
+<span class="n">dot</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
+<span class="n">dot</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;net_graph2&quot;</span><span class="p">)</span>
 
 <span class="c1"># Display the computation graph in Jupyter Notebook</span>
-<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;net_graph2.png&#39;</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;net_graph2.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/tutorial-image-data-notebook_35_0.png" src="../_images/tutorial-image-data-notebook_35_0.png" />
+<img alt="../_images/tutorial-image-data-notebook_32_0.png" src="../_images/tutorial-image-data-notebook_32_0.png" />
 </div>
 </div>
-<p>Here, the ‘criterion’ is is used to compute the loss or error between the predicted output of a model and the actual output. During training, the model updates its parameters based on the value of the loss computed by the criterion. PyTorch provides several built-in criterion classes, such as nn.MSELoss for mean squared error and nn.CrossEntropyLoss for multi-class classification; or in our case:</p>
-<p>nn.NLLLoss - negative log likelihood, here our ‘target’ is a tensor of class labels which are true, we have our loss defined as the negative of the log-probabilities for each tensorial input (for every tensor value we have a unique loss, ignore the technical jargon). You simply take the log of the probability of each value of the input tensor (we can use nn.LogSoftmax for this for example).</p>
-<p>On the other hand, the optimizer is how we actually use this ‘loss’ to update the parameters of the model, we usually use optim.Adam or optim.SGD, ‘Adam’ (adaptive moment estimation) is essentially a more adaptive SGD (stochastic gradient descent), where the learning rate is updated based on the loss function and parameters. We use SGD over ‘Adam’ if our data is noisy or if we have a shallow network (like this one), as in these cases SGD converges faster - in most other cases ‘Adam’ converges much faster.</p>
-<p>Both of these try approach optimal parameter values by going towards the negative gradient we get from the loss function, multiplied by the learning rate, and reducing the parameter values by such.</p>
+<p>Here, the criterion is used to compute the loss or error between the predicted output of a model and the actual output. During training, the model updates its parameters based on the value of the loss computed by the criterion. PyTorch provides several built-in criterion classes, such as <code class="docutils literal notranslate"><span class="pre">nn.MSELoss</span></code> for mean squared error and <code class="docutils literal notranslate"><span class="pre">nn.CrossEntropyLoss</span></code> for multi-class classification.</p>
+<p>In this case, we use<code class="docutils literal notranslate"><span class="pre">nn.NLLLoss</span></code>, which means the negative log-likelihood loss. Our target is a tensor of class labels. We have our loss defined as the negative of the log probabilities for each tensor input (for every tensor value, we have a unique loss). The model output takes the log of the probability of each value of the input tensor (we can use <code class="docutils literal notranslate"><span class="pre">nn.LogSoftmax</span></code> for this, for example).</p>
+<p>On the other hand, the optimizer is how we use this loss to update the model parameters. We usually use <code class="docutils literal notranslate"><span class="pre">optim.Adam</span></code> or <code class="docutils literal notranslate"><span class="pre">optim.SGD</span></code>. Adam (adaptive moment estimation) is an adaptive SGD (stochastic gradient descent) where the learning rate is updated based on the loss function and parameters. We use SGD over Adam if our data is noisy or if we have a shallow network (like this one). In these cases, SGD converges faster. In most other cases, Adam converges much faster.</p>
+<p>Both of these try to approach optimal parameter values by going towards the negative gradient we get from the loss function, multiplied by the learning rate, and reducing the parameter values by such.</p>
 <p>Now we will train the model, as before:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training</span>
 
-<span class="n">net</span> <span class="o">=</span> <span class="n">to_device</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span> <span class="c1"># move the model to the device (CPU or GPU)</span>
+<span class="n">simple_net</span> <span class="o">=</span> <span class="n">to_device</span><span class="p">(</span><span class="n">simple_net</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span> <span class="c1"># move the model to the device (CPU or GPU)</span>
 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
     <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trainloader</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">simple_net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
         <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
         <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">99</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">%d</span><span class="s1">, </span><span class="si">%5d</span><span class="s1">] loss: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">500</span> <span class="o">==</span> <span class="mi">499</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[epoch </span><span class="si">%d</span><span class="s2">, iteration </span><span class="si">%5d</span><span class="s2">] loss: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span>
                   <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">running_loss</span> <span class="o">/</span> <span class="mi">100</span><span class="p">))</span>
             <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished training&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,   100] loss: 0.490
-[1,   200] loss: 0.226
-[1,   300] loss: 0.174
-[1,   400] loss: 0.135
-[1,   500] loss: 0.117
-[1,   600] loss: 0.107
-[1,   700] loss: 0.091
-[1,   800] loss: 0.103
-[1,   900] loss: 0.096
-[2,   100] loss: 0.077
-[2,   200] loss: 0.070
-[2,   300] loss: 0.075
-[2,   400] loss: 0.083
-[2,   500] loss: 0.074
-[2,   600] loss: 0.072
-[2,   700] loss: 0.065
-[2,   800] loss: 0.059
-[2,   900] loss: 0.066
-[3,   100] loss: 0.048
-[3,   200] loss: 0.049
-[3,   300] loss: 0.052
-[3,   400] loss: 0.067
-[3,   500] loss: 0.055
-[3,   600] loss: 0.055
-[3,   700] loss: 0.052
-[3,   800] loss: 0.060
-[3,   900] loss: 0.061
-[4,   100] loss: 0.040
-[4,   200] loss: 0.046
-[4,   300] loss: 0.049
-[4,   400] loss: 0.043
-[4,   500] loss: 0.049
-[4,   600] loss: 0.046
-[4,   700] loss: 0.043
-[4,   800] loss: 0.047
-[4,   900] loss: 0.049
-[5,   100] loss: 0.028
-[5,   200] loss: 0.037
-[5,   300] loss: 0.037
-[5,   400] loss: 0.046
-[5,   500] loss: 0.041
-[5,   600] loss: 0.048
-[5,   700] loss: 0.039
-[5,   800] loss: 0.039
-[5,   900] loss: 0.044
-[6,   100] loss: 0.030
-[6,   200] loss: 0.031
-[6,   300] loss: 0.032
-[6,   400] loss: 0.029
-[6,   500] loss: 0.033
-[6,   600] loss: 0.038
-[6,   700] loss: 0.038
-[6,   800] loss: 0.041
-[6,   900] loss: 0.034
-[7,   100] loss: 0.027
-[7,   200] loss: 0.032
-[7,   300] loss: 0.032
-[7,   400] loss: 0.031
-[7,   500] loss: 0.032
-[7,   600] loss: 0.030
-[7,   700] loss: 0.030
-[7,   800] loss: 0.034
-[7,   900] loss: 0.028
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[epoch 1, iteration   500] loss: 1.161
+[epoch 2, iteration   500] loss: 0.366
+[epoch 3, iteration   500] loss: 0.286
+[epoch 4, iteration   500] loss: 0.236
+[epoch 5, iteration   500] loss: 0.198
+[epoch 6, iteration   500] loss: 0.162
+[epoch 7, iteration   500] loss: 0.151
 Finished training
 </pre></div>
 </div>
 </div>
 </div>
-<p>Training was completed above, nothing new here, we will again test the accuracy of the model, we are hoping for a marginal increase in accuracy, given we have complexified the model - see below the accuracy test:</p>
+<p>The training was completed above. We will again test the accuracy of the model. We are hoping for a marginal increase in accuracy, given that we have complexified the model. See below the accuracy test:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Accuracy</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluation</span>
 
 <span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">testloader</span><span class="p">:</span>
         <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">simple_net</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">total</span> <span class="o">+=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy on the test set: </span><span class="si">%d</span><span class="s1"> </span><span class="si">%%</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on the test set: </span><span class="si">%d</span><span class="s2"> </span><span class="si">%%</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -997,17 +943,18 @@ Finished training
 </div>
 </div>
 </div>
-<p>This is quite the increase, seemingly, it is worth it to increase the complexity, lets test out this hypothesis; I won’t be explaining much, what follows is more for you to interpret, and make your own conclusions - please ask if you have questions!</p>
+<p>This is quite an increase. It seems that increasing the complexity of the model is worth it.</p>
 </section>
-<section id="the-elusive-cnn-as-good-as-it-gets">
-<h2>The Elusive CNN (As good as it gets?)<a class="headerlink" href="#the-elusive-cnn-as-good-as-it-gets" title="Permalink to this headline">#</a></h2>
+<section id="a-complex-model-as-good-as-it-gets">
+<h2>A Complex Model (As good as it gets?)<a class="headerlink" href="#a-complex-model-as-good-as-it-gets" title="Permalink to this headline">#</a></h2>
+<p>Out of curiosity, let us try a more complex model with more layers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Network architecture</span>
 
-<span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">ComplexNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Net</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ComplexNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">64</span><span class="o">*</span><span class="mi">5</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
@@ -1034,117 +981,62 @@ Finished training
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initializing the network</span>
 
-<span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
-<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span> <span class="c1"># Note the change here</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+<span class="n">complex_net</span> <span class="o">=</span> <span class="n">ComplexNet</span><span class="p">()</span>
+<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span> <span class="c1"># note the change here</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">complex_net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
 <span class="c1"># Pass the input tensor through the network and calculate the output</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">complex_net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
 <span class="c1"># Create a visualization of the computation graph</span>
-<span class="n">dot</span> <span class="o">=</span> <span class="n">make_dot</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">()))</span>
-<span class="n">dot</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;png&#39;</span>
-<span class="n">dot</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;net_graph3&#39;</span><span class="p">)</span>
+<span class="n">dot</span> <span class="o">=</span> <span class="n">make_dot</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">complex_net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">()))</span>
+<span class="n">dot</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
+<span class="n">dot</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;net_graph3&quot;</span><span class="p">)</span>
 
 <span class="c1"># Display the computation graph in Jupyter Notebook</span>
-<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;net_graph3.png&#39;</span><span class="p">)</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;net_graph3.png&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/tutorial-image-data-notebook_44_0.png" src="../_images/tutorial-image-data-notebook_44_0.png" />
+<img alt="../_images/tutorial-image-data-notebook_41_0.png" src="../_images/tutorial-image-data-notebook_41_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training</span>
 
-<span class="n">net</span> <span class="o">=</span> <span class="n">to_device</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span> <span class="c1"># move the model to the device (CPU or GPU)</span>
+<span class="n">complex_net</span> <span class="o">=</span> <span class="n">to_device</span><span class="p">(</span><span class="n">complex_net</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span> <span class="c1"># move the model to the device (CPU or GPU)</span>
 <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">):</span>
     <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trainloader</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
         <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">complex_net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
         <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
         <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
         <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">99</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">%d</span><span class="s1">, </span><span class="si">%5d</span><span class="s1">] loss: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">500</span> <span class="o">==</span> <span class="mi">499</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[epoch </span><span class="si">%d</span><span class="s2">, iteration </span><span class="si">%5d</span><span class="s2">] loss: </span><span class="si">%.3f</span><span class="s2">&quot;</span> <span class="o">%</span>
                   <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">running_loss</span> <span class="o">/</span> <span class="mi">100</span><span class="p">))</span>
             <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished training&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,   100] loss: 0.871
-[1,   200] loss: 0.207
-[1,   300] loss: 0.159
-[1,   400] loss: 0.115
-[1,   500] loss: 0.104
-[1,   600] loss: 0.092
-[1,   700] loss: 0.082
-[1,   800] loss: 0.076
-[1,   900] loss: 0.076
-[2,   100] loss: 0.069
-[2,   200] loss: 0.061
-[2,   300] loss: 0.052
-[2,   400] loss: 0.055
-[2,   500] loss: 0.045
-[2,   600] loss: 0.045
-[2,   700] loss: 0.042
-[2,   800] loss: 0.052
-[2,   900] loss: 0.045
-[3,   100] loss: 0.037
-[3,   200] loss: 0.041
-[3,   300] loss: 0.039
-[3,   400] loss: 0.041
-[3,   500] loss: 0.028
-[3,   600] loss: 0.033
-[3,   700] loss: 0.038
-[3,   800] loss: 0.035
-[3,   900] loss: 0.040
-[4,   100] loss: 0.036
-[4,   200] loss: 0.025
-[4,   300] loss: 0.026
-[4,   400] loss: 0.029
-[4,   500] loss: 0.031
-[4,   600] loss: 0.025
-[4,   700] loss: 0.034
-[4,   800] loss: 0.028
-[4,   900] loss: 0.019
-[5,   100] loss: 0.018
-[5,   200] loss: 0.022
-[5,   300] loss: 0.021
-[5,   400] loss: 0.019
-[5,   500] loss: 0.022
-[5,   600] loss: 0.021
-[5,   700] loss: 0.026
-[5,   800] loss: 0.019
-[5,   900] loss: 0.022
-[6,   100] loss: 0.015
-[6,   200] loss: 0.016
-[6,   300] loss: 0.013
-[6,   400] loss: 0.018
-[6,   500] loss: 0.013
-[6,   600] loss: 0.019
-[6,   700] loss: 0.015
-[6,   800] loss: 0.016
-[6,   900] loss: 0.013
-[7,   100] loss: 0.012
-[7,   200] loss: 0.011
-[7,   300] loss: 0.016
-[7,   400] loss: 0.010
-[7,   500] loss: 0.012
-[7,   600] loss: 0.013
-[7,   700] loss: 0.011
-[7,   800] loss: 0.014
-[7,   900] loss: 0.021
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[epoch 1, iteration   500] loss: 1.423
+[epoch 2, iteration   500] loss: 0.263
+[epoch 3, iteration   500] loss: 0.179
+[epoch 4, iteration   500] loss: 0.125
+[epoch 5, iteration   500] loss: 0.087
+[epoch 6, iteration   500] loss: 0.067
+[epoch 7, iteration   500] loss: 0.058
 Finished training
 </pre></div>
 </div>
@@ -1159,12 +1051,12 @@ Finished training
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">testloader</span><span class="p">:</span>
         <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">complex_net</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
         <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">total</span> <span class="o">+=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy on the test set: </span><span class="si">%d</span><span class="s1"> </span><span class="si">%%</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy on the test set: </span><span class="si">%d</span><span class="s2"> </span><span class="si">%%</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1174,272 +1066,110 @@ Finished training
 </div>
 </div>
 </div>
-<p>Surely this is about as good as it gets accuracy wise, or is it?</p>
+<p>This complex model only gives us a marginal increase in accuracy. Is it worth the effort?</p>
 </section>
-<section id="the-complex-cnn-perfection">
-<h2>The complex CNN (Perfection?)<a class="headerlink" href="#the-complex-cnn-perfection" title="Permalink to this headline">#</a></h2>
+<section id="explainability">
+<h2>Explainability<a class="headerlink" href="#explainability" title="Permalink to this headline">#</a></h2>
+<p>Apart from performance, another feature to consider when developing an AI system is its <strong>explainability</strong>, i.e., the ability to show why the model makes decisions in the way it does.</p>
+<p>Explainability is important for several reasons. Having explanations for a model’s decisions not only helps build trust in them but also increases productivity when debugging the model or tackling areas of improvement.</p>
+<p>New techniques have been developed to improve explainability in complex ML models in recent years. We will look at <a class="reference external" href="https://arxiv.org/abs/1610.02391">GradCAM (Gradient-weighted Class Activation Mapping)</a>, a model that shows the regions in the image that helped the model in making decisions for CNNs of different architectures. It is a generalization of <a class="reference external" href="https://arxiv.org/abs/1512.04150">CAM (Class Activation Mapping)</a>. The function <code class="docutils literal notranslate"><span class="pre">display_grad_cam</span></code> computes and displays the GradCAMs of a batch of images for a given method:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Network architecture</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scale_to_01</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Scales an array so all its values lie in the interval [0, 1].</span>
 
-<span class="k">class</span> <span class="nc">complexNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">complexNet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="o">*</span><span class="mi">5</span><span class="o">*</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4096</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">4096</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc4</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc5</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    arr : numpy.array</span>
+<span class="sd">        The original array.</span>
 
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">max_pool2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc4</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc5</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">output</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.array</span>
+<span class="sd">        The sclaed array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">min_val</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">max_val</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">scaled_array</span> <span class="o">=</span> <span class="p">(</span><span class="n">arr</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">max_val</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">scaled_array</span>
+
+
+<span class="k">def</span> <span class="nf">display_grad_cam</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target_layers</span><span class="p">,</span> <span class="n">images</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes and displays the GradCAM for a convolutional neural network for a</span>
+<span class="sd">    batch of images.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : nn.Module</span>
+<span class="sd">        Model on which we want to compute the GradCAM.</span>
+<span class="sd">    target_layers : List[nn.Module]</span>
+<span class="sd">        List of convolutional layers where the GradCAM is computed. If a list</span>
+<span class="sd">        with several layers is provided, the CAM will be averaged accross them.</span>
+<span class="sd">    images: torch.Tensor</span>
+<span class="sd">        Batch of images for which the GradCAM shall be computed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Appply GradCAM to the images</span>
+    <span class="n">grad_cam</span> <span class="o">=</span> <span class="n">GradCAM</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">target_layers</span><span class="o">=</span><span class="n">target_layers</span><span class="p">)</span>
+    <span class="n">cams</span> <span class="o">=</span> <span class="n">grad_cam</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">=</span><span class="n">images</span><span class="p">,</span>
+                    <span class="n">targets</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                    <span class="n">aug_smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="n">eigen_smooth</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Convert images to numpy arrays and scale them to [0,1]</span>
+    <span class="c1"># This step is necessary for the show_cam_on_image funciton to work</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">scale_to_01</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">images</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">cpu</span><span class="p">()))</span>
+
+    <span class="c1"># Merge each image with its CAM</span>
+    <span class="n">cam_images</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">cam</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">cams</span><span class="p">):</span>
+        <span class="n">cam_images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">show_cam_on_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cam</span><span class="p">,</span> <span class="n">use_rgb</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="n">cam_images</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">cam_images</span><span class="p">)</span>
+
+    <span class="c1"># Display grid with cams of all images in the batch</span>
+    <span class="n">nrow</span> <span class="o">=</span> <span class="mi">6</span>
+    <span class="n">img_size_factor</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="n">grid_image</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">make_grid</span><span class="p">(</span><span class="n">cam_images</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">nrow</span><span class="o">=</span><span class="n">nrow</span><span class="p">)</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">nrow</span><span class="o">*</span><span class="n">img_size_factor</span><span class="p">,</span> <span class="p">((</span><span class="n">images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">nrow</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">img_size_factor</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Model: &quot;</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">grid_image</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Let’s display some GradCAMS for all the convolutional networks that we have trained. It is common to select the <strong>last convolutional layer</strong> as target layer, but feel free to try it out with other layers (or a combination of them).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initiatializing the Network</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a batch of (64) images</span>
+<span class="n">images</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">testloader</span><span class="p">))</span>
 
-<span class="n">net</span> <span class="o">=</span> <span class="n">complexNet</span><span class="p">()</span>
-<span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">)</span>
+<span class="c1"># Select only 18 images</span>
+<span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">18</span><span class="p">]</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="c1"># Pass the input tensor through the network and calculate the output</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-<span class="c1"># Create a visualization of the computation graph</span>
-<span class="n">dot</span> <span class="o">=</span> <span class="n">make_dot</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">params</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">()))</span>
-<span class="n">dot</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="s1">&#39;png&#39;</span>
-<span class="n">dot</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;net_graph4&#39;</span><span class="p">)</span>
-
-<span class="c1"># Display the computation graph in Jupyter Notebook</span>
-<span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;net_graph4.png&#39;</span><span class="p">)</span>
+<span class="c1"># Display GradCAM on the last convolutional layer of each model</span>
+<span class="n">model_layer</span> <span class="o">=</span> <span class="p">[(</span><span class="n">simple_net</span><span class="p">,</span> <span class="p">[</span><span class="n">simple_net</span><span class="o">.</span><span class="n">conv1</span><span class="p">]),</span> <span class="p">(</span><span class="n">complex_net</span><span class="p">,</span> <span class="p">[</span><span class="n">complex_net</span><span class="o">.</span><span class="n">conv2</span><span class="p">])]</span>
+<span class="k">for</span> <span class="n">model</span><span class="p">,</span> <span class="n">target_layers</span> <span class="ow">in</span> <span class="n">model_layer</span><span class="p">:</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">display_grad_cam</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">target_layers</span><span class="p">,</span> <span class="n">images</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/tutorial-image-data-notebook_50_0.png" src="../_images/tutorial-image-data-notebook_50_0.png" />
+<img alt="../_images/tutorial-image-data-notebook_48_0.png" src="../_images/tutorial-image-data-notebook_48_0.png" />
+<img alt="../_images/tutorial-image-data-notebook_48_1.png" src="../_images/tutorial-image-data-notebook_48_1.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training</span>
-
-<span class="n">net</span> <span class="o">=</span> <span class="n">to_device</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span> <span class="c1"># move the model to the device (CPU or GPU)</span>
-<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
-    <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
-    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trainloader</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-        <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
-        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-        <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-        <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">99</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;[</span><span class="si">%d</span><span class="s1">, </span><span class="si">%5d</span><span class="s1">] loss: </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span>
-                  <span class="p">(</span><span class="n">epoch</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">running_loss</span> <span class="o">/</span> <span class="mi">100</span><span class="p">))</span>
-            <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finished training&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,   100] loss: 0.688
-[1,   200] loss: 0.193
-[1,   300] loss: 0.122
-[1,   400] loss: 0.110
-[1,   500] loss: 0.082
-[1,   600] loss: 0.086
-[1,   700] loss: 0.071
-[1,   800] loss: 0.061
-[1,   900] loss: 0.058
-[2,   100] loss: 0.051
-[2,   200] loss: 0.056
-[2,   300] loss: 0.047
-[2,   400] loss: 0.061
-[2,   500] loss: 0.046
-[2,   600] loss: 0.043
-[2,   700] loss: 0.045
-[2,   800] loss: 0.048
-[2,   900] loss: 0.047
-[3,   100] loss: 0.032
-[3,   200] loss: 0.027
-[3,   300] loss: 0.034
-[3,   400] loss: 0.026
-[3,   500] loss: 0.033
-[3,   600] loss: 0.037
-[3,   700] loss: 0.034
-[3,   800] loss: 0.036
-[3,   900] loss: 0.033
-[4,   100] loss: 0.022
-[4,   200] loss: 0.023
-[4,   300] loss: 0.022
-[4,   400] loss: 0.027
-[4,   500] loss: 0.023
-[4,   600] loss: 0.028
-[4,   700] loss: 0.025
-[4,   800] loss: 0.024
-[4,   900] loss: 0.026
-[5,   100] loss: 0.026
-[5,   200] loss: 0.017
-[5,   300] loss: 0.016
-[5,   400] loss: 0.020
-[5,   500] loss: 0.025
-[5,   600] loss: 0.018
-[5,   700] loss: 0.023
-[5,   800] loss: 0.016
-[5,   900] loss: 0.024
-[6,   100] loss: 0.013
-[6,   200] loss: 0.012
-[6,   300] loss: 0.016
-[6,   400] loss: 0.015
-[6,   500] loss: 0.015
-[6,   600] loss: 0.014
-[6,   700] loss: 0.018
-[6,   800] loss: 0.018
-[6,   900] loss: 0.018
-[7,   100] loss: 0.012
-[7,   200] loss: 0.009
-[7,   300] loss: 0.014
-[7,   400] loss: 0.015
-[7,   500] loss: 0.021
-[7,   600] loss: 0.015
-[7,   700] loss: 0.010
-[7,   800] loss: 0.018
-[7,   900] loss: 0.014
-[8,   100] loss: 0.014
-[8,   200] loss: 0.008
-[8,   300] loss: 0.006
-[8,   400] loss: 0.011
-[8,   500] loss: 0.014
-[8,   600] loss: 0.015
-[8,   700] loss: 0.009
-[8,   800] loss: 0.008
-[8,   900] loss: 0.009
-[9,   100] loss: 0.013
-[9,   200] loss: 0.007
-[9,   300] loss: 0.012
-[9,   400] loss: 0.005
-[9,   500] loss: 0.012
-[9,   600] loss: 0.009
-[9,   700] loss: 0.010
-[9,   800] loss: 0.008
-[9,   900] loss: 0.014
-[10,   100] loss: 0.006
-[10,   200] loss: 0.009
-[10,   300] loss: 0.009
-[10,   400] loss: 0.009
-[10,   500] loss: 0.007
-[10,   600] loss: 0.009
-[10,   700] loss: 0.008
-[10,   800] loss: 0.008
-[10,   900] loss: 0.005
-[11,   100] loss: 0.011
-[11,   200] loss: 0.006
-[11,   300] loss: 0.004
-[11,   400] loss: 0.006
-[11,   500] loss: 0.009
-[11,   600] loss: 0.014
-[11,   700] loss: 0.004
-[11,   800] loss: 0.006
-[11,   900] loss: 0.013
-[12,   100] loss: 0.007
-[12,   200] loss: 0.004
-[12,   300] loss: 0.003
-[12,   400] loss: 0.009
-[12,   500] loss: 0.009
-[12,   600] loss: 0.006
-[12,   700] loss: 0.010
-[12,   800] loss: 0.002
-[12,   900] loss: 0.006
-[13,   100] loss: 0.003
-[13,   200] loss: 0.008
-[13,   300] loss: 0.006
-[13,   400] loss: 0.002
-[13,   500] loss: 0.007
-[13,   600] loss: 0.003
-[13,   700] loss: 0.006
-[13,   800] loss: 0.006
-[13,   900] loss: 0.008
-[14,   100] loss: 0.005
-[14,   200] loss: 0.011
-[14,   300] loss: 0.006
-[14,   400] loss: 0.005
-[14,   500] loss: 0.006
-[14,   600] loss: 0.007
-[14,   700] loss: 0.008
-[14,   800] loss: 0.005
-[14,   900] loss: 0.005
-[15,   100] loss: 0.004
-[15,   200] loss: 0.003
-[15,   300] loss: 0.003
-[15,   400] loss: 0.002
-[15,   500] loss: 0.001
-[15,   600] loss: 0.003
-[15,   700] loss: 0.005
-[15,   800] loss: 0.008
-[15,   900] loss: 0.009
-Finished training
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Accuracy</span>
-
-<span class="n">correct</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">testloader</span><span class="p">:</span>
-        <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
-        <span class="n">_</span><span class="p">,</span> <span class="n">predicted</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="n">total</span> <span class="o">+=</span> <span class="n">labels</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">correct</span> <span class="o">+=</span> <span class="p">(</span><span class="n">predicted</span> <span class="o">==</span> <span class="n">labels</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Accuracy on the test set: </span><span class="si">%d</span><span class="s1"> </span><span class="si">%%</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">/</span> <span class="n">total</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy on the test set: 99 %
-</pre></div>
-</div>
-</div>
-</div>
-<p>What do you think about this model?</p>
-<p><img alt="" src="https://github.com/MultiX-Amsterdam/image-data-module/blob/main/images/icarus.jpg?raw=true" /></p>
-<p>Image source – <a class="reference external" href="https://www.greekmythologyinart.com/the-fall-of-icarus-gowy.html">https://www.greekmythologyinart.com/the-fall-of-icarus-gowy.html</a></p>
-<p>Which one of these models will you use to decode the ancient tablet? Are any of them good enough? Briefly explain why you picked the model you did, so you can justify to your colleagues why they will continue working further with it!</p>
+<p>The plots show the CAMs on top of the original images. The GradCAMs use a warmer color on the pixels that are more relevant to the classification decision and a colder color on the ones that are less relevant.</p>
+<p>What differences can you spot between the explanations for the different models?</p>
+<p>Which one of these models will you use? Think about their accuracy and the result from the GradCAM. Did you notice anything weird in the GradCAM for some models? Briefly explain why you picked the model you did so you can justify to your colleagues why they will continue working further with it!</p>
 <hr class="footnotes docutils" />
 <dl class="footnote brackets">
 <dt class="label" id="credit"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>Credit: this teaching material is created by Bryan Fleming under the supervision of <a class="reference external" href="https://github.com/yenchiah">Yen-Chia Hsu</a>.</p>
+<dd><p>Credit: this teaching material is created by Bryan Fleming and revised by <a class="reference external" href="https://github.com/amonroym99">Alejandro Monroy</a> under the supervision of <a class="reference external" href="https://github.com/yenchiah">Yen-Chia Hsu</a>.</p>
 </dd>
 </dl>
 </section>

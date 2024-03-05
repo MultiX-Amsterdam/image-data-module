@@ -1,0 +1,542 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>image-data-module &#8212; Image Data Processing</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Image Data Processing</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../overview-image-data.html">
+                    Image Data Processing
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preparation-image-data.html">
+   Preparation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tutorial-image-data-notebook.html">
+   Tutorial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../assignment-image-data.html">
+   Assignment
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/MultiX-Amsterdam/image-data-module"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/MultiX-Amsterdam/image-data-module/issues/new?title=Issue%20on%20page%20%2Fdocs/image-data-module/README.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/docs/image-data-module/README.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-name-coding-standards-a-coding-standards">
+   <a name="coding-standards">
+   </a>
+   Coding standards
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#language">
+     Language
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#git-workflow">
+     Git workflow
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-style">
+     Coding style
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#build-this-book">
+   Build this book
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#potential-error">
+   Potential Error
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>image-data-module</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-name-coding-standards-a-coding-standards">
+   <a name="coding-standards">
+   </a>
+   Coding standards
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#language">
+     Language
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#git-workflow">
+     Git workflow
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#coding-style">
+     Coding style
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#build-this-book">
+   Build this book
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#potential-error">
+   Potential Error
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="image-data-module">
+<h1>image-data-module<a class="headerlink" href="#image-data-module" title="Permalink to this headline">#</a></h1>
+<p>This repository hosts the teaching materials for processing image data in the <a class="reference external" href="https://multix.io/data-science-book-uva/">UvA Data Science course</a>.</p>
+<p>All the content in this repository is licensed under <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p>Credit: this teaching material is created by Bryan Fleming under the supervision of <a class="reference external" href="https://github.com/yenchiah">Yen-Chia Hsu</a>.</p>
+<section id="a-name-coding-standards-a-coding-standards">
+<h2><a name="coding-standards"></a>Coding standards<a class="headerlink" href="#a-name-coding-standards-a-coding-standards" title="Permalink to this headline">#</a></h2>
+<p>When contributing code to this repository, please follow the guidelines below:</p>
+<section id="language">
+<h3>Language<a class="headerlink" href="#language" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>The primary language for this repository is set to English. Please use English when writing comments and docstrings in the code. Please also use English when writing git issues, pull requests, wiki pages, commit messages, and the README file.</p></li>
+</ul>
+</section>
+<section id="git-workflow">
+<h3>Git workflow<a class="headerlink" href="#git-workflow" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Follow the <a class="reference external" href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow">Git Feature Branch Workflow</a>. The master branch preserves the development history with no broken code. When working on a system feature, create a separate feature branch.</p></li>
+<li><p>Always create a pull request before merging the feature branch into the main branch. Doing so helps keep track of the project history and manage git issues.</p></li>
+<li><p>NEVER perform git rebasing on public branches, which means that you should not run “git rebase [FEATURE-BRANCH]” while you are on a public branch (e.g., the main branch). Doing so will badly confuse other developers since rebasing rewrites the git history, and other people’s works may be based on the public branch. Check <a class="reference external" href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing#the-golden-rule-of-rebasing">this tutorial</a> for details.</p></li>
+<li><p>NEVER push credentials to the repository, for example, database passwords or private keys for signing digital signatures (e.g., the user tokens).</p></li>
+<li><p>Request a code review when you are not sure if the feature branch can be safely merged into the main branch.</p></li>
+</ul>
+</section>
+<section id="coding-style">
+<h3>Coding style<a class="headerlink" href="#coding-style" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Use the functional programming style (check <a class="reference external" href="https://docs.python.org/3/howto/functional.html">this Python document</a> for the concept). It means that each function is self-contained and does NOT depend on a state that may change outside the function (e.g., global variables). Avoid using the object-oriented programming style unless necessary. In this way, we can accelerate the development progress while maintaining code reusability.</p></li>
+<li><p>Minimize the usage of global variables, unless necessary, such as system configuration variables. For each function, avoid modifying its input parameters. In this way, each function can be independent, which is good for debugging code and assigning coding tasks to a specific collaborator.</p></li>
+<li><p>Use a consistent coding style.</p>
+<ul>
+<li><p>For Python, follow the <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP 8 style guide</a>, for example, putting two blank lines between functions, using the lower_snake_case naming convention for variable and function names. Please use double quote (not single quote) for strings.</p></li>
+</ul>
+</li>
+<li><p>Document functions and script files using docstrings.</p>
+<ul>
+<li><p>For Python, follow the <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">numpydoc style guide</a>. Here is an <a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/example.html#example">example</a>. More detailed numpydoc style can be found on <a class="reference external" href="https://developer.lsst.io/python/numpydoc.html">LSST’s docstrings guide</a>.</p></li>
+</ul>
+</li>
+<li><p>Always comment the code, which helps others read the code and reduce our pain in the future when debugging or adding new features.</p></li>
+</ul>
+</section>
+</section>
+<section id="build-this-book">
+<h2>Build this book<a class="headerlink" href="#build-this-book" title="Permalink to this headline">#</a></h2>
+<p>Below are the steps to update and build this book. First, clone this repository to your local machine. Assume that you already have <a class="reference external" href="https://docs.conda.io/en/main/miniconda.html">miniconda</a> installed. Next, install the jupyter-book package:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ conda create -n jupyterbook
+$ conda activate jupyterbook
+$ conda install python
+$ pip install -U jupyter-book
+$ pip install -U ghp-import
+$ jupyter-book --help
+</pre></div>
+</div>
+<p>Then, clone this repository and build the book:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/MultiX-Amsterdam/image-data-module
+$ <span class="nb">cd</span> image-data-module
+$ jupyter-book build .
+</pre></div>
+</div>
+<p>To rebuild the entire book, use the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ jupyter-book build --all .
+</pre></div>
+</div>
+<p>Once it is done, you can view the book in the <span class="xref myst">html content</span> folder using a web browser. To update the book online in this GitHub repository (in the gh-pages branch), run the following:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ ghp-import -n -p -f _build/html
+</pre></div>
+</div>
+<p>The above steps will update the gh-pages branch, which hosts the website. Finally, follow the normal git flow to commit the changes and push the code to the main branch in this repository.</p>
+</section>
+<section id="potential-error">
+<h2>Potential Error<a class="headerlink" href="#potential-error" title="Permalink to this headline">#</a></h2>
+<p>Notice that the notebooks in this repository are created on Google Colab.
+When copying the notebook created by Colab, we have to clear widget state to prevent the following error when building the JupyterBook.</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>Exception occurred:
+  File <span class="s2">&quot;/opt/homebrew/Caskroom/miniconda/base/envs/jupyterbook/lib/python3.10/site-packages/jupyter_sphinx/execute.py&quot;</span>, line <span class="m">300</span>, <span class="k">in</span> contains_widgets
+    <span class="k">return</span> widgets and widgets<span class="o">[</span><span class="s2">&quot;state&quot;</span><span class="o">]</span>
+KeyError: <span class="s1">&#39;state&#39;</span>
+</pre></div>
+</div>
+<p>To fix this problem, use the solution in <a class="reference external" href="https://github.com/jupyter-widgets/ipywidgets/issues/2867#issuecomment-625418996">this link</a>.
+Open the downloaded notebook on JupyterLab and follow the steps below:</p>
+<ul class="simple">
+<li><p>Make sure “Save Widget State Automatically” is checked under “Settings” in the menu bar</p></li>
+<li><p>Restart the kernel (no need to clean output)</p></li>
+<li><p>Save the notebook</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./docs/image-data-module"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Yen-Chia Hsu<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
