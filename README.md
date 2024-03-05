@@ -3,7 +3,7 @@ This repository hosts the teaching materials for processing image data in the [U
 
 All the content in this repository is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-Credit: this teaching material is created by Bryan Fleming under the supervision of [Yen-Chia Hsu](https://github.com/yenchiah).
+Credit: this teaching material is created by Bryan Fleming and revised by [Alejandro Monroy](https://github.com/amonroym99) under the supervision of [Yen-Chia Hsu](https://github.com/yenchiah).
 
 ## <a name="coding-standards"></a>Coding standards
 When contributing code to this repository, please follow the guidelines below:
