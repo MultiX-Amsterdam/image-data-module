@@ -7,7 +7,7 @@
 # 
 # [^credit]: Credit: this teaching material was created by [Alejandro Monroy](https://github.com/amonroym99) under the supervision of [Yen-Chia Hsu](https://github.com/yenchiah).
 # 
-# Here is an online version of [this notebook in Google Colab](https://drive.google.com/file/d/105ZiJSGjOEhS4EXEU_OooWcKYTd-oeBx/view?usp=sharing). This online version is just for browsing. To work on this notebook, you need to copy a new one to your own Google Colab.
+# Here is an online version of [this notebook in Google Colab](https://colab.research.google.com/drive/105ZiJSGjOEhS4EXEU_OooWcKYTd-oeBx?usp=sharing). This online version is just for browsing. To work on this notebook, you need to copy a new one to your own Google Colab.
 # 
 # This tutorial covers image classification with PyTorch for a more complex dataset than the one used in the previous tutorial. More specifically, you will learn:
 # - How to identify overfitting.
@@ -54,7 +54,7 @@ def set_seed(seed):
     Seeds for reproducibility.
 
     Parameters
-    ----------    
+    ----------
     seed : int
         The seed.
     """
@@ -231,7 +231,7 @@ def train(model, train_dataloader, val_dataloader, n_epochs=50, lr=0.001, weight
     for epoch in range(n_epochs):
         epoch_losses = []
         model.train()
-        
+
         for i, (images, labels) in enumerate(train_dataloader):
             images = images.to(device)
             labels = labels.to(device)
@@ -243,10 +243,10 @@ def train(model, train_dataloader, val_dataloader, n_epochs=50, lr=0.001, weight
             optimizer.step()
 
             epoch_losses.append(loss.item())
-            
+
             if verbose and i % 100 == 0:
                 print(f"Epoch {epoch} | Batch {i}/{len(train_dataloader)} | Training loss: {'{0:.4f}'.format(loss.item())}")
-                  
+
         train_loss = np.mean(epoch_losses).item()
         train_losses.append(train_loss)
 
@@ -262,9 +262,9 @@ def train(model, train_dataloader, val_dataloader, n_epochs=50, lr=0.001, weight
             train_accuracies.append(train_acc)
             print(f"Epoch {epoch} | Training loss: {'{0:.4f}'.format(train_loss)} | Training accuracy: {'{0:.4f}'.format(train_acc)} | Validation accuracy: {'{0:.4f}'.format(val_acc)}")
 
-        else: 
+        else:
             print(f"Epoch {epoch} | Training loss: {'{0:.4f}'.format(train_loss)} | Validation accuracy: {'{0:.4f}'.format(val_acc)}")
-    
+
     return best_model, train_losses, train_accuracies, val_accuracies
 
 
@@ -374,7 +374,7 @@ plt.imshow(make_grid([image, rotator(image), flipper(image), color_jitter(image)
 
 # Define new transformation pipeline for the training dataset, including augmentations
 transform_augmented = transforms.Compose([
-    transforms.RandomHorizontalFlip(p=0.5), 
+    transforms.RandomHorizontalFlip(p=0.5),
     transforms.RandomCrop(32, padding=4),
     transforms.ToTensor(),
     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
