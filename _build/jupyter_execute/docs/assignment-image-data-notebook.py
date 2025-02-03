@@ -3,7 +3,7 @@
 
 # # Assignment (Image Data Processing)
 # 
-# (Last updated: Mar 5, 2024)[^credit]
+# (Last updated: Feb 3, 2025)[^credit]
 # 
 # [^credit]: Credit: this teaching material is created by Bryan Fleming and revised by [Alejandro Monroy](https://github.com/amonroym99) under the supervision of [Yen-Chia Hsu](https://github.com/yenchiah).
 # 
@@ -657,7 +657,7 @@ for label, images in class_images.items():
 # 
 # Now, given all of this, it is up to you to analyse these algorithms, the outcomes, and determine the variables which contribute more; the Gemeente is relying on you for the future, so do your best to understand and advise based on this.
 
-# #### Assignment 7
+# #### Assignment 7 (optional)
 # 
 # Conduct experiments and write a short paragraph to recommend the best CNN, optimizer, and learning rate (of the ones used) for the Gemeente to carry forward in their development of a full pipeline AI garbage classifier. You can try [different network architecture](https://pytorch.org/vision/main/models.html#classification), number of epochs, learning rate, and weight initializations.
 

@@ -67,7 +67,7 @@ import numpy as np
 # **First, you need to enable GPUs for the notebook in Google Colab:**
 # 
 # - Navigate to Edit→Notebook Settings
-# - Select GPU from the Hardware Accelerator drop-down
+# - Select GPU from the Hardware Accelerator
 
 # In[ ]:
 

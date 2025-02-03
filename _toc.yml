@@ -10,5 +10,9 @@ parts:
     title: "Preparation"
   - file: docs/tutorial-image-data-notebook
     title: "Tutorial"
+  - file: docs/tutorial-cifar-image-data-notebook
+    title: "Tutorial Advanced"
   - file: docs/assignment-image-data
     title: "Assignment"
+  - file: docs/answer
+    title: "Task Answers"
